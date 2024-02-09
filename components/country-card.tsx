@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import Image from "next/image";
 import {
   Card,
   CardContent,
@@ -13,7 +14,9 @@ export const CountryCard = () => {
     <div>
       <Card>
         <CardHeader>
-          <CardTitle>Card Title</CardTitle>
+          <CardTitle className="flex items-center justify-center">
+            <Image src="/example.webp" height={100} width={100} alt="example" />
+          </CardTitle>
           <CardDescription>Card Description</CardDescription>
         </CardHeader>
         <CardContent>
