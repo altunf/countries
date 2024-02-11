@@ -2,12 +2,14 @@
 import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useSearchContext } from "@/context/searchContext";
 
 export const SearchBar = () => {
-  const [searchTerm, setSearchTerm]: any = useState();
+  const { searchTerm, setSearchTerm, textFilter }: any = useSearchContext();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    textFilter();
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
