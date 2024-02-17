@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/pagination";
 
 export const CountriesPagination = () => {
-  const { data, setPaginate }: any = useSearchContext();
+  const { data, paginate, setPaginate }: any = useSearchContext();
   const [numberOfPages, setNumberOfPages] = useState<number>(0);
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
 
@@ -36,15 +36,13 @@ export const CountriesPagination = () => {
       <Pagination>
         <PaginationContent>
           <PaginationItem>
-            {selectedIndex > 1 ? (
+            {selectedIndex > 1 && (
               <PaginationPrevious
                 href="#"
                 onClick={() => {
                   handlePaginationClick(selectedIndex - 1);
                 }}
               />
-            ) : (
-              ""
             )}
           </PaginationItem>
           {[...Array(numberOfPages)].map((_, index: number) => (
@@ -59,20 +57,15 @@ export const CountriesPagination = () => {
               </PaginationLink>
             </PaginationItem>
           ))}
-          {/*      <PaginationItem>
-            <PaginationEllipsis />
-          </PaginationItem> */}
 
           <PaginationItem>
-            {numberOfPages > selectedIndex ? (
+            {numberOfPages > selectedIndex && (
               <PaginationNext
                 href="#"
                 onClick={() => {
                   handlePaginationClick(selectedIndex + 1);
                 }}
               />
-            ) : (
-              ""
             )}
           </PaginationItem>
         </PaginationContent>
