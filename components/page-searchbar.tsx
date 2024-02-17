@@ -26,7 +26,7 @@ export const SearchBar = () => {
           type="text"
           value={searchTerm}
           onChange={handleChange}
-          placeholder="search:tt group:size"
+          placeholder="search:tt group:eu"
         />
         <Button type="submit">Search</Button>
       </form>
