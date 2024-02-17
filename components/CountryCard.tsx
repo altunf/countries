@@ -9,13 +9,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-export const CountryCard = () => {
+export const CountryCard = ({ country }: any) => {
+  let imgSrc = `https://flagpedia.net/data/flags/h120/${country?.code.toLowerCase()}.png`;
   return (
     <div>
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center justify-center">
-            <Image src="/example.webp" height={100} width={100} alt="example" />
+          <CardTitle className="flex m-2 h-36">
+            <Image src={imgSrc} width={224} height={100} alt={country?.name} />
           </CardTitle>
           <CardDescription>Card Description</CardDescription>
         </CardHeader>

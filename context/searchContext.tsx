@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { gql } from "@apollo/client";
+import { Countries } from "@/types/types";
 
 const SearchContext = createContext({});
 
@@ -8,6 +9,7 @@ export const SearchContextProvider = ({ children }: any) => {
   const [searchTerm, setSearchTerm]: any = useState("");
   const [searchText, setSearchText]: any = useState("");
   const [groupText, setGroupText]: any = useState("");
+  const [paginate, setPaginate] = useState();
 
   //text filtering
   const textFilter = (props: string) => {
@@ -38,6 +40,7 @@ export const SearchContextProvider = ({ children }: any) => {
          countries(filter: ${filterString}) {
            name
            code
+           emoji
            currency
            continent {
              name
@@ -50,7 +53,6 @@ export const SearchContextProvider = ({ children }: any) => {
      `;
 
   const { data, loading, error } = useQuery(GET_COUNTRIES);
-  console.log(data?.countries);
 
   return (
     <SearchContext.Provider
@@ -59,6 +61,9 @@ export const SearchContextProvider = ({ children }: any) => {
         setSearchTerm,
         textFilter,
         searchAndGroupCheck,
+        data,
+        setPaginate,
+        paginate,
       }}
     >
       {children}
