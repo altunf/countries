@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useSearchContext } from "@/context/searchContext";
@@ -9,7 +9,7 @@ export const SearchBar = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    textFilter();
+    textFilter(searchTerm);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
