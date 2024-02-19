@@ -8,11 +8,14 @@ import { CountryCard } from "./CountryCard";
 export const CountriesList = () => {
   const { result }: any = useSearchContext();
 
+  const list = result?.map((country: Countries, index: number) => (
+    <CountryCard country={country} key={index} id={index} />
+  ));
+  console.log(result);
+
   return (
     <div className=" flex flex-wrap justify-center gap-4 my-4">
-      {result?.map((country: Countries, index: number) => (
-        <CountryCard country={country} key={index} id={index} />
-      ))}
+      {result ? list : "Press Search Button"}
     </div>
   );
 };

@@ -5,7 +5,7 @@ import { gql } from "@apollo/client";
 const SearchContext = createContext({});
 
 export const SearchContextProvider = ({ children }: any) => {
-  const [searchTerm, setSearchTerm]: any = useState("search: a group: eu");
+  const [searchTerm, setSearchTerm]: any = useState("search:t group:eu");
   const [searchText, setSearchText]: any = useState("");
   const [groupText, setGroupText]: any = useState("");
   const [selectedItem, setSelectedItem]: any = useState();

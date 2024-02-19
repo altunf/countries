@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/pagination";
 
 export const CountriesPagination = () => {
-  const { data, setPaginate }: any = useSearchContext();
+  const { data, setPaginate, result }: any = useSearchContext();
   const [numberOfPages, setNumberOfPages] = useState<number>(0);
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
 
@@ -32,39 +32,40 @@ export const CountriesPagination = () => {
 
   return (
     <main>
-      <Pagination>
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious
-              className=" text-muted-foreground hover:text-muted-foreground"
-              href="#"
-              onClick={() => {
-                selectedIndex > 1 && handlePaginationClick(selectedIndex - 1);
-              }}
-            />
-          </PaginationItem>
-          {[...Array(numberOfPages)].map((_, index: number) => (
-            <PaginationItem
-              key={index}
-              onClick={() => handlePaginationClick(index + 1)}
-            >
-              <PaginationLink href="#" isActive={index + 1 === selectedIndex}>
-                {index + 1}
-              </PaginationLink>
+      {result?.length > 0 && (
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem className=" text-muted-foreground hover:text-muted-foreground">
+              <PaginationPrevious
+                href="#"
+                onClick={() => {
+                  selectedIndex > 1 && handlePaginationClick(selectedIndex - 1);
+                }}
+              />
             </PaginationItem>
-          ))}
+            {[...Array(numberOfPages)].map((_, index: number) => (
+              <PaginationItem
+                key={index}
+                onClick={() => handlePaginationClick(index + 1)}
+              >
+                <PaginationLink href="#" isActive={index + 1 === selectedIndex}>
+                  {index + 1}
+                </PaginationLink>
+              </PaginationItem>
+            ))}
 
-          <PaginationItem>
-            <PaginationNext
-              href="#"
-              onClick={() => {
-                numberOfPages > selectedIndex &&
-                  handlePaginationClick(selectedIndex + 1);
-              }}
-            />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
+            <PaginationItem>
+              <PaginationNext
+                href="#"
+                onClick={() => {
+                  numberOfPages > selectedIndex &&
+                    handlePaginationClick(selectedIndex + 1);
+                }}
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
+      )}
     </main>
   );
 };
