@@ -1,15 +1,19 @@
 import { CountriesList } from "@/components/CountriesList";
 import { SearchBar } from "@/components/SearchBar";
-import { PageHeader } from "@/components/Header";
 import { CountriesPagination } from "@/components/CountriesPagination";
+import { Nav } from "@/components/Nav";
+
+//flex min-h-screen flex-col items-center justify-between p-24
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <PageHeader />
-      <SearchBar />
-      <CountriesList />
-      <CountriesPagination />
+    <main className="p-12">
+      <Nav />
+      <div className="flex flex-col items-center justify-between py-6">
+        <SearchBar />
+        <CountriesList />
+        <CountriesPagination />
+      </div>
     </main>
   );
 }

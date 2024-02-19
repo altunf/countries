@@ -4,6 +4,7 @@ import "@/styles/globals.css";
 
 import ApolloProviders from "@/providers/apolloProvider";
 import SearchProvider from "@/providers/searchProvider";
+import { ThemeProvider } from "@/providers/themeProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +22,16 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ApolloProviders>
-          <SearchProvider>{children}</SearchProvider>
+          <SearchProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="light"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
+            </ThemeProvider>
+          </SearchProvider>
         </ApolloProviders>
       </body>
     </html>

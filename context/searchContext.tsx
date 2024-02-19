@@ -1,14 +1,15 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { gql } from "@apollo/client";
-import { Countries } from "@/types/types";
 
 const SearchContext = createContext({});
 
 export const SearchContextProvider = ({ children }: any) => {
-  const [searchTerm, setSearchTerm]: any = useState("");
+  const [searchTerm, setSearchTerm]: any = useState("search: a group: eu");
   const [searchText, setSearchText]: any = useState("");
   const [groupText, setGroupText]: any = useState("");
+  const [selectedItem, setSelectedItem]: any = useState();
+  const [colorChange, setColorChange] = useState(true);
   const [paginate, setPaginate] = useState();
 
   //text filtering
@@ -36,7 +37,7 @@ export const SearchContextProvider = ({ children }: any) => {
   }
 
   const GET_COUNTRIES = gql`
-       query Query {
+       query Query  {
          countries(filter: ${filterString}) {
            name
            code
@@ -54,6 +55,11 @@ export const SearchContextProvider = ({ children }: any) => {
 
   const { data, loading, error } = useQuery(GET_COUNTRIES);
 
+  let result = data?.countries;
+  if (data?.countries.length > 10) {
+    result = paginate;
+  }
+
   return (
     <SearchContext.Provider
       value={{
@@ -64,6 +70,11 @@ export const SearchContextProvider = ({ children }: any) => {
         data,
         setPaginate,
         paginate,
+        selectedItem,
+        setSelectedItem,
+        colorChange,
+        setColorChange,
+        result,
       }}
     >
       {children}

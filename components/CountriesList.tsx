@@ -6,19 +6,12 @@ import { Countries } from "@/types/types";
 import { CountryCard } from "./CountryCard";
 
 export const CountriesList = () => {
-  const { data, paginate }: any = useSearchContext();
-
-  let result = data?.countries;
-  if (data?.countries.length > 10) result = paginate;
+  const { result }: any = useSearchContext();
 
   return (
-    <div className=" flex flex-wrap justify-center">
+    <div className=" flex flex-wrap justify-center gap-4 my-4">
       {result?.map((country: Countries, index: number) => (
-        <CountryCard
-          country={country}
-          key={index}
-          isSelected={index === result?.length - 1}
-        />
+        <CountryCard country={country} key={index} id={index} />
       ))}
     </div>
   );

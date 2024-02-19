@@ -4,7 +4,7 @@ import { useSearchContext } from "@/context/searchContext";
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
+  // PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/pagination";
 
 export const CountriesPagination = () => {
-  const { data, paginate, setPaginate }: any = useSearchContext();
+  const { data, setPaginate }: any = useSearchContext();
   const [numberOfPages, setNumberOfPages] = useState<number>(0);
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
 
@@ -26,9 +26,8 @@ export const CountriesPagination = () => {
 
   const handlePaginationClick = (item: number) => {
     setSelectedIndex(item);
-    const perPage: any = data?.countries.slice((item - 1) * 10, item * 10);
-
-    setPaginate(perPage);
+    const pageSize: any = data?.countries.slice((item - 1) * 10, item * 10);
+    setPaginate(pageSize);
   };
 
   return (
@@ -36,21 +35,18 @@ export const CountriesPagination = () => {
       <Pagination>
         <PaginationContent>
           <PaginationItem>
-            {selectedIndex > 1 && (
-              <PaginationPrevious
-                href="#"
-                onClick={() => {
-                  handlePaginationClick(selectedIndex - 1);
-                }}
-              />
-            )}
+            <PaginationPrevious
+              className=" text-muted-foreground hover:text-muted-foreground"
+              href="#"
+              onClick={() => {
+                selectedIndex > 1 && handlePaginationClick(selectedIndex - 1);
+              }}
+            />
           </PaginationItem>
           {[...Array(numberOfPages)].map((_, index: number) => (
             <PaginationItem
               key={index}
-              onClick={() => {
-                handlePaginationClick(index + 1);
-              }}
+              onClick={() => handlePaginationClick(index + 1)}
             >
               <PaginationLink href="#" isActive={index + 1 === selectedIndex}>
                 {index + 1}
@@ -59,14 +55,13 @@ export const CountriesPagination = () => {
           ))}
 
           <PaginationItem>
-            {numberOfPages > selectedIndex && (
-              <PaginationNext
-                href="#"
-                onClick={() => {
+            <PaginationNext
+              href="#"
+              onClick={() => {
+                numberOfPages > selectedIndex &&
                   handlePaginationClick(selectedIndex + 1);
-                }}
-              />
-            )}
+              }}
+            />
           </PaginationItem>
         </PaginationContent>
       </Pagination>
