@@ -1,6 +1,11 @@
 "use client";
 import { SearchContextProvider } from "@/context/searchContext";
+import { Suspense } from "react";
 
 export default function SearchProvider({ children }: any) {
-  return <SearchContextProvider>{children}</SearchContextProvider>;
+  return (
+    <Suspense>
+      <SearchContextProvider>{children}</SearchContextProvider>{" "}
+    </Suspense>
+  );
 }
