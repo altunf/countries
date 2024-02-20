@@ -1,15 +1,23 @@
 import React, { createContext, useContext, useState } from "react";
+
+import { useQueryState } from "nuqs";
+
 import { useQuery } from "@apollo/client";
 import { gql } from "@apollo/client";
 
 const SearchContext = createContext({});
 
 export const SearchContextProvider = ({ children }: any) => {
-  const [searchTerm, setSearchTerm]: any = useState("search:t group:eu");
-  const [searchText, setSearchText]: any = useState("");
-  const [groupText, setGroupText]: any = useState("");
+  const [searchTerm, setSearchTerm]: any = useState("");
+
+  const [searchText, setSearchText]: any = useQueryState("search");
+  const [groupText, setGroupText]: any = useQueryState("group");
+
   const [selectedItem, setSelectedItem]: any = useState();
   const [colorChange, setColorChange] = useState(true);
+
+  const [selectedIndex, setSelectedIndex] = useState<number>(0);
+  const [numberOfPages, setNumberOfPages] = useState<number>(0);
   const [paginate, setPaginate] = useState();
 
   //text filtering
@@ -17,8 +25,13 @@ export const SearchContextProvider = ({ children }: any) => {
     const searchPattern: RegExp = /search:(.*?)(?:\s*group:\s*(.*))?\s*$/;
     const searchMatch = props?.match(searchPattern);
 
-    if (searchMatch && searchMatch[1]) setSearchText(searchMatch[1].trim());
-    if (searchMatch && searchMatch[2]) setGroupText(searchMatch[2].trim());
+    searchMatch && searchMatch[1]
+      ? setSearchText(searchMatch[1].trim())
+      : setSearchText(null);
+
+    searchMatch && searchMatch[2]
+      ? setGroupText(searchMatch[2].trim())
+      : setGroupText(null);
   };
 
   // checks for the strings 'search:' or 'group:' in the input text.
@@ -28,7 +41,7 @@ export const SearchContextProvider = ({ children }: any) => {
   // dynamic fetch  with input text.
   let filterString;
   const nameFilter = `name: { regex: "${searchText}" }`;
-  const continentFilter = `continent: { eq: "${groupText.toUpperCase()}" } `;
+  const continentFilter = `continent: { eq: "${groupText?.toUpperCase()}" } `;
 
   if (searchText) {
     filterString = groupText
@@ -67,7 +80,6 @@ export const SearchContextProvider = ({ children }: any) => {
         setSearchTerm,
         textFilter,
         searchAndGroupCheck,
-        data,
         setPaginate,
         paginate,
         selectedItem,
@@ -75,6 +87,15 @@ export const SearchContextProvider = ({ children }: any) => {
         colorChange,
         setColorChange,
         result,
+        data,
+        loading,
+        error,
+        searchText,
+        groupText,
+        selectedIndex,
+        setSelectedIndex,
+        numberOfPages,
+        setNumberOfPages,
       }}
     >
       {children}

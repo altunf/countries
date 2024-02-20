@@ -22,9 +22,12 @@ export const CountryCard = ({ country, id }: any) => {
     result,
   }: any = useSearchContext();
 
-  const clr1 = "bg-slate-500";
-  const clr2 = "bg-red-500";
-  const bgClr = selectedItem === id ? (colorChange === true ? clr1 : clr2) : "";
+  const bgClr =
+    selectedItem === id
+      ? colorChange === true
+        ? "bg-orange"
+        : "bg-violet"
+      : "";
   const imgSrc = `https://flagpedia.net/data/flags/h120/${country?.code.toLowerCase()}.png`;
 
   useEffect(() => {

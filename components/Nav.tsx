@@ -1,6 +1,5 @@
 import React from "react";
-
-import { ThemeButton } from "./themeButton";
+import { ThemeButton } from "./ThemeButton";
 
 export const Nav = () => {
   return (

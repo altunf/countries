@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "@/styles/globals.css";
+
 import "@/styles/variables.css";
+import "@/styles/globals.css";
 
 import ApolloProviders from "@/providers/apolloProvider";
 import SearchProvider from "@/providers/searchProvider";
 import { ThemeProvider } from "@/providers/themeProvider";
+
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,6 +37,7 @@ export default function RootLayout({
             </ThemeProvider>
           </SearchProvider>
         </ApolloProviders>
+        <Toaster />
       </body>
     </html>
   );

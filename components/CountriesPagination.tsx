@@ -12,9 +12,15 @@ import {
 } from "@/components/ui/pagination";
 
 export const CountriesPagination = () => {
-  const { data, setPaginate, result }: any = useSearchContext();
-  const [numberOfPages, setNumberOfPages] = useState<number>(0);
-  const [selectedIndex, setSelectedIndex] = useState<number>(0);
+  const {
+    data,
+    setPaginate,
+    result,
+    selectedIndex,
+    setSelectedIndex,
+    numberOfPages,
+    setNumberOfPages,
+  }: any = useSearchContext();
 
   useEffect(() => {
     const dataLength: number = data?.countries.length || 0;
