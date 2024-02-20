@@ -5,12 +5,10 @@ import Image from "next/image";
 import { useSearchContext } from "@/context/searchContext";
 import { Countries } from "@/types/types";
 import { CountryCard } from "./CountryCard";
-
-import { useToast } from "./ui/use-toast";
+import { Divide } from "lucide-react";
 
 export const CountriesList = () => {
   const { result, loading, error }: any = useSearchContext();
-  const { toast }: any = useToast();
 
   const list = result?.map((country: Countries, index: number) => (
     <CountryCard country={country} key={index} id={index} />
@@ -20,9 +18,22 @@ export const CountriesList = () => {
   const loadingSrc: string = "/loading-animate.svg";
 
   const msg = (imgSrc: string) => {
+    let display = false;
+
+    imgSrc === errorSrc && (display = true);
+    const show = display ? "Press Search" : "Loading...";
+
     return (
-      <div className="flex justify-center items-center   ">
-        <Image src={imgSrc} height={500} width={500} alt="loading" />
+      <div className="flex justify-center items-center flex-col ">
+        <Image
+          src={imgSrc}
+          height={500}
+          width={500}
+          alt="loading"
+          className={display ? "transform -scale-x-100" : ""}
+        />
+
+        <div>{show}</div>
       </div>
     );
   };

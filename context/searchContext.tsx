@@ -1,24 +1,27 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 import { useQueryState } from "nuqs";
 
 import { useQuery } from "@apollo/client";
 import { gql } from "@apollo/client";
+import { useToast } from "@/components/ui/use-toast";
 
 const SearchContext = createContext({});
 
 export const SearchContextProvider = ({ children }: any) => {
-  const [searchTerm, setSearchTerm]: any = useState("");
-
-  const [searchText, setSearchText]: any = useQueryState("search");
-  const [groupText, setGroupText]: any = useQueryState("group");
-
-  const [selectedItem, setSelectedItem]: any = useState();
-  const [colorChange, setColorChange] = useState(true);
+  const [searchTerm, setSearchTerm]: any = useState("search:a group:eu");
 
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const [numberOfPages, setNumberOfPages] = useState<number>(0);
   const [paginate, setPaginate] = useState();
+
+  const [selectedItem, setSelectedItem]: any = useState();
+  const [colorChange, setColorChange] = useState(true);
+
+  const [searchText, setSearchText]: any = useQueryState("search");
+  const [groupText, setGroupText]: any = useQueryState("group");
+
+  const { toast } = useToast();
 
   //text filtering
   const textFilter = (props: string) => {
@@ -72,6 +75,16 @@ export const SearchContextProvider = ({ children }: any) => {
   if (data?.countries.length > 10) {
     result = paginate;
   }
+
+  useEffect(() => {
+    if (result?.length <= 0) {
+      toast({
+        title: "Uh oh! Something went wrong.",
+        description:
+          "No results were found matching your search criteria. Capitalize the first letter or use another search term.",
+      });
+    }
+  }, [result]);
 
   return (
     <SearchContext.Provider

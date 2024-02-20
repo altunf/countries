@@ -7,14 +7,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 export const SearchBar = () => {
-  const { searchTerm, setSearchTerm, textFilter, searchText, groupText }: any =
+  const { searchTerm, setSearchTerm, textFilter, result }: any =
     useSearchContext();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
 
-  const handleSubmit = (e: React.MouseEvent) => {
+  const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     textFilter(searchTerm);
   };
@@ -29,7 +29,7 @@ export const SearchBar = () => {
           placeholder="search:tt group:eu"
         />
 
-        <Button onClick={handleSubmit}>Search</Button>
+        <Button onClick={handleClick}>Search</Button>
       </form>
     </main>
   );

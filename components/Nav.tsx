@@ -1,5 +1,6 @@
 import React from "react";
 import { ThemeButton } from "./ThemeButton";
+import Link from "next/link";
 
 export const Nav = () => {
   return (
@@ -7,7 +8,9 @@ export const Nav = () => {
       <nav>
         <ul className="flex items-center justify-between">
           <li>
-            <strong className="text-xl">Countries</strong>
+            <Link href={"/"} className="text-xl">
+              Countries
+            </Link>
           </li>
           <li>
             <ThemeButton />
